@@ -11,6 +11,12 @@
 
   <link rel="canonical" href="{{ canonical_url }}">
 
+  {% if settings.favicon != blank %}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
+    <link rel="shortcut icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
+    <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '180x180' }}">
+  {% endif %}
+
   {{ content_for_header }}
 
   <!-- Tailwind CSS -->

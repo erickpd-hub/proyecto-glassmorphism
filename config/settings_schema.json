@@ -24,6 +24,12 @@
         "default": 100,
         "unit": "px",
         "label": "Logo width"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "El favicon se muestra en la pestaña del navegador. Tamaño recomendado: 32x32px o 16x16px"
       }
     ]
   },
