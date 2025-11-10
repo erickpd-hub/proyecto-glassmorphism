@@ -1,0 +1,118 @@
+<section class="container mx-auto px-4 py-20">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      {% if section.settings.title != blank %}
+        <h2 class="text-4xl md:text-5xl text-gray-900 dark:text-white mb-4">
+          {{ section.settings.title }}
+        </h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <p class="text-xl text-gray-700 dark:text-gray-300">
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for block in section.blocks %}
+        <div class="bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl overflow-hidden border border-white/50 dark:border-white/10 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+          {% if block.settings.image != blank %}
+            <div class="aspect-video overflow-hidden">
+              <img src="{{ block.settings.image | img_url: '800x600' }}" 
+                   alt="{{ block.settings.title }}"
+                   loading="lazy"
+                   class="w-full h-full object-cover">
+            </div>
+          {% endif %}
+          
+          <div class="p-6">
+            {% if block.settings.title != blank %}
+              <h3 class="text-2xl text-gray-900 dark:text-white mb-3">
+                {{ block.settings.title }}
+              </h3>
+            {% endif %}
+            
+            {% if block.settings.text != blank %}
+              <div class="text-gray-700 dark:text-gray-300 mb-4">
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+            
+            {% if block.settings.button_text != blank %}
+              <a href="{{ block.settings.button_link }}" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                {{ block.settings.button_text }}
+                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image Grid with Text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Nuestros Valores"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Grid Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Título"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Descripción del item.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Grid with Text",
+      "blocks": [
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

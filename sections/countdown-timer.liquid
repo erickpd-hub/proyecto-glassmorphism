@@ -1,0 +1,116 @@
+<section class="container mx-auto px-4 py-20">
+  <div class="max-w-4xl mx-auto bg-white/30 dark:bg-black/30 backdrop-blur-xl rounded-3xl p-12 md:p-16 border border-white/50 dark:border-white/10 shadow-2xl text-center">
+    {% if section.settings.title != blank %}
+      <h2 class="text-4xl md:text-5xl text-gray-900 dark:text-white mb-4">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+    
+    {% if section.settings.description != blank %}
+      <p class="text-xl text-gray-700 dark:text-gray-300 mb-8">
+        {{ section.settings.description }}
+      </p>
+    {% endif %}
+
+    <div id="countdown-{{ section.id }}" class="grid grid-cols-4 gap-4 md:gap-8 mb-8">
+      <div class="bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl p-6 border border-white/50 dark:border-white/10">
+        <div class="text-4xl md:text-6xl font-bold text-blue-600 dark:text-blue-400 mb-2" id="days-{{ section.id }}">00</div>
+        <div class="text-gray-700 dark:text-gray-300 uppercase text-sm md:text-base">Días</div>
+      </div>
+      <div class="bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl p-6 border border-white/50 dark:border-white/10">
+        <div class="text-4xl md:text-6xl font-bold text-blue-600 dark:text-blue-400 mb-2" id="hours-{{ section.id }}">00</div>
+        <div class="text-gray-700 dark:text-gray-300 uppercase text-sm md:text-base">Horas</div>
+      </div>
+      <div class="bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl p-6 border border-white/50 dark:border-white/10">
+        <div class="text-4xl md:text-6xl font-bold text-blue-600 dark:text-blue-400 mb-2" id="minutes-{{ section.id }}">00</div>
+        <div class="text-gray-700 dark:text-gray-300 uppercase text-sm md:text-base">Minutos</div>
+      </div>
+      <div class="bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl p-6 border border-white/50 dark:border-white/10">
+        <div class="text-4xl md:text-6xl font-bold text-blue-600 dark:text-blue-400 mb-2" id="seconds-{{ section.id }}">00</div>
+        <div class="text-gray-700 dark:text-gray-300 uppercase text-sm md:text-base">Segundos</div>
+      </div>
+    </div>
+
+    {% if section.settings.button_text != blank %}
+      <a href="{{ section.settings.button_link }}" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full transition-colors font-medium text-lg">
+        {{ section.settings.button_text }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  (function() {
+    const endDate = new Date("{{ section.settings.end_date }}").getTime();
+    const sectionId = "{{ section.id }}";
+    
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = endDate - now;
+      
+      if (distance < 0) {
+        document.getElementById('days-' + sectionId).textContent = "00";
+        document.getElementById('hours-' + sectionId).textContent = "00";
+        document.getElementById('minutes-' + sectionId).textContent = "00";
+        document.getElementById('seconds-' + sectionId).textContent = "00";
+        return;
+      }
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById('days-' + sectionId).textContent = String(days).padStart(2, '0');
+      document.getElementById('hours-' + sectionId).textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutes-' + sectionId).textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds-' + sectionId).textContent = String(seconds).padStart(2, '0');
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Countdown Timer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "OFERTA POR TIEMPO LIMITADO"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "No te pierdas esta increíble oferta"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End Date (YYYY-MM-DD HH:MM:SS)",
+      "default": "2025-12-31 23:59:59",
+      "info": "Format: YYYY-MM-DD HH:MM:SS (e.g., 2025-12-31 23:59:59)"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "COMPRAR AHORA"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown Timer"
+    }
+  ]
+}
+{% endschema %}

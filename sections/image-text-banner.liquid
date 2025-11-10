@@ -1,0 +1,136 @@
+<section class="container mx-auto px-4 py-20">
+  <div class="max-w-6xl mx-auto bg-white/30 dark:bg-black/30 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/50 dark:border-white/10 shadow-2xl">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+      {% if section.settings.layout == 'image_first' %}
+        <!-- Image First -->
+        <div class="relative overflow-hidden aspect-square lg:aspect-auto">
+          {% if section.settings.image != blank %}
+            <img src="{{ section.settings.image | img_url: '1000x1000' }}" 
+                 alt="{{ section.settings.title }}"
+                 class="w-full h-full object-cover">
+          {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+          {% endif %}
+        </div>
+        
+        <div class="p-8 md:p-12 flex flex-col justify-center">
+          {% if section.settings.title != blank %}
+            <h2 class="text-3xl md:text-5xl text-gray-900 dark:text-white mb-4">
+              {{ section.settings.title }}
+            </h2>
+          {% endif %}
+          
+          {% if section.settings.text != blank %}
+            <div class="text-lg text-gray-700 dark:text-gray-300 mb-6 prose dark:prose-invert">
+              {{ section.settings.text }}
+            </div>
+          {% endif %}
+          
+          {% if section.settings.button_text != blank %}
+            <div>
+              <a href="{{ section.settings.button_link }}" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full transition-colors font-medium">
+                {{ section.settings.button_text }}
+                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% else %}
+        <!-- Text First -->
+        <div class="p-8 md:p-12 flex flex-col justify-center">
+          {% if section.settings.title != blank %}
+            <h2 class="text-3xl md:text-5xl text-gray-900 dark:text-white mb-4">
+              {{ section.settings.title }}
+            </h2>
+          {% endif %}
+          
+          {% if section.settings.text != blank %}
+            <div class="text-lg text-gray-700 dark:text-gray-300 mb-6 prose dark:prose-invert">
+              {{ section.settings.text }}
+            </div>
+          {% endif %}
+          
+          {% if section.settings.button_text != blank %}
+            <div>
+              <a href="{{ section.settings.button_link }}" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full transition-colors font-medium">
+                {{ section.settings.button_text }}
+                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+        
+        <div class="relative overflow-hidden aspect-square lg:aspect-auto">
+          {% if section.settings.image != blank %}
+            <img src="{{ section.settings.image | img_url: '1000x1000' }}" 
+                 alt="{{ section.settings.title }}"
+                 class="w-full h-full object-cover">
+          {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image & Text Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "image_first",
+          "label": "Image First"
+        },
+        {
+          "value": "text_first",
+          "label": "Text First"
+        }
+      ],
+      "default": "image_first"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Sobre Nosotros"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Describe tu marca y historia aquí.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Saber más"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image & Text Banner"
+    }
+  ]
+}
+{% endschema %}

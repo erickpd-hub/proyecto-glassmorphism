@@ -1,0 +1,123 @@
+<section class="container mx-auto px-4 py-20">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      {% if section.settings.title != blank %}
+        <h2 class="text-4xl md:text-5xl text-gray-900 dark:text-white mb-4">
+          {{ section.settings.title }}
+        </h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <p class="text-xl text-gray-700 dark:text-gray-300">
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="space-y-4">
+      {% for block in section.blocks %}
+        <div class="bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl border border-white/50 dark:border-white/10 shadow-xl overflow-hidden">
+          <button class="faq-question w-full text-left p-6 flex items-center justify-between hover:bg-white/20 dark:hover:bg-black/20 transition-colors"
+                  onclick="toggleFaq{{ section.id }}({{ forloop.index0 }})">
+            <span class="text-xl text-gray-900 dark:text-white font-medium pr-8">
+              {{ block.settings.question }}
+            </span>
+            <svg class="faq-icon w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0 transition-transform duration-300" 
+                 id="faq-icon-{{ section.id }}-{{ forloop.index0 }}"
+                 fill="none" 
+                 stroke="currentColor" 
+                 viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6 text-gray-700 dark:text-gray-300" 
+               id="faq-answer-{{ section.id }}-{{ forloop.index0 }}">
+            {{ block.settings.answer }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  function toggleFaq{{ section.id }}(index) {
+    const answer = document.getElementById('faq-answer-{{ section.id }}-' + index);
+    const icon = document.getElementById('faq-icon-{{ section.id }}-' + index);
+    
+    if (answer.classList.contains('hidden')) {
+      answer.classList.remove('hidden');
+      icon.style.transform = 'rotate(180deg)';
+    } else {
+      answer.classList.add('hidden');
+      icon.style.transform = 'rotate(0deg)';
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "PREGUNTAS FRECUENTES"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Encuentra respuestas a las preguntas más comunes"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "¿Cuál es tu pregunta?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Aquí va la respuesta a tu pregunta.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Cuál es el tiempo de envío?",
+            "answer": "<p>El tiempo de envío es de 3-5 días hábiles.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Aceptan devoluciones?",
+            "answer": "<p>Sí, aceptamos devoluciones dentro de los 30 días posteriores a la compra.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Cómo puedo rastrear mi pedido?",
+            "answer": "<p>Recibirás un correo electrónico con el número de seguimiento una vez que tu pedido sea enviado.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

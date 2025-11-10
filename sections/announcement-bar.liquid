@@ -1,0 +1,86 @@
+{% if section.settings.show_announcement %}
+<div class="announcement-bar bg-white dark:bg-gray-950 overflow-hidden border-b border-gray-200 dark:border-gray-800">
+  <div class="relative h-10 flex items-center">
+    <div class="announcement-scroll flex whitespace-nowrap">
+      <span class="announcement-text text-gray-900 dark:text-white px-4">
+        {% for block in section.blocks %}
+          {{ block.settings.text }}
+          {% unless forloop.last %} • {% endunless %}
+        {% endfor %}
+      </span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .announcement-scroll {
+    animation: scroll-left 30s linear infinite;
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-33.33%);
+    }
+  }
+
+  .announcement-text::after {
+    content: " • {{ section.blocks | map: 'settings' | map: 'text' | join: ' • ' }} • {{ section.blocks | map: 'settings' | map: 'text' | join: ' • ' }}";
+  }
+</style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement bar",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "🔥 50% OFF EN TODA LA COLECCIÓN"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "🔥 50% OFF EN TODA LA COLECCIÓN"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "✨ ENVÍO GRATIS EN COMPRAS MAYORES A $500"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "🎉 NUEVOS DROPS CADA VIERNES"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

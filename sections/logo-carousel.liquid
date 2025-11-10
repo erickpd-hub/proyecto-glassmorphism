@@ -1,0 +1,146 @@
+<section class="py-20 overflow-hidden">
+  <div class="container mx-auto px-4 mb-12">
+    {% if section.settings.title != blank %}
+      <h2 class="text-4xl md:text-5xl text-gray-900 dark:text-white text-center mb-4">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+    {% if section.settings.description != blank %}
+      <p class="text-xl text-gray-700 dark:text-gray-300 text-center">
+        {{ section.settings.description }}
+      </p>
+    {% endif %}
+  </div>
+
+  <div class="relative">
+    <div class="logo-carousel-track" id="logo-carousel-{{ section.id }}">
+      <div class="logo-carousel-content">
+        {% for block in section.blocks %}
+          {% if block.settings.logo != blank %}
+            <div class="logo-carousel-item bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl p-8 border border-white/50 dark:border-white/10 shadow-xl flex items-center justify-center">
+              <img src="{{ block.settings.logo | img_url: '300x300' }}" 
+                   alt="{{ block.settings.name }}"
+                   loading="lazy"
+                   class="max-h-16 md:max-h-20 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300">
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="logo-carousel-content" aria-hidden="true">
+        {% for block in section.blocks %}
+          {% if block.settings.logo != blank %}
+            <div class="logo-carousel-item bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl p-8 border border-white/50 dark:border-white/10 shadow-xl flex items-center justify-center">
+              <img src="{{ block.settings.logo | img_url: '300x300' }}" 
+                   alt="{{ block.settings.name }}"
+                   loading="lazy"
+                   class="max-h-16 md:max-h-20 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300">
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .logo-carousel-track {
+    display: flex;
+    width: fit-content;
+    animation: scroll-rtl-{{ section.id }} {{ section.settings.speed }}s linear infinite;
+  }
+
+  .logo-carousel-content {
+    display: flex;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .logo-carousel-item {
+    min-width: 200px;
+    width: 200px;
+    height: 120px;
+    flex-shrink: 0;
+  }
+
+  @keyframes scroll-rtl-{{ section.id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .logo-carousel-track:hover {
+    animation-play-state: paused;
+  }
+
+  @media (max-width: 768px) {
+    .logo-carousel-item {
+      min-width: 150px;
+      width: 150px;
+      height: 100px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Logo Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "MARCAS QUE CONFÍAN EN NOSOTROS"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "s",
+      "label": "Animation Speed",
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Brand Name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo Carousel",
+      "blocks": [
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

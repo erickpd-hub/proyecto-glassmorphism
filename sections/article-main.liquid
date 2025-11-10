@@ -1,0 +1,85 @@
+<section class="container mx-auto px-4 py-12">
+  <article class="max-w-4xl mx-auto bg-white/30 dark:bg-black/30 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/50 dark:border-white/10 shadow-2xl">
+    <header class="mb-8">
+      <h1 class="text-4xl md:text-6xl text-gray-900 dark:text-white mb-4">{{ article.title }}</h1>
+      
+      <div class="flex items-center gap-4 text-gray-600 dark:text-gray-400">
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+          {{ article.published_at | date: '%d de %B de %Y' }}
+        </time>
+        {% if article.author != blank %}
+          <span>•</span>
+          <span>Por {{ article.author }}</span>
+        {% endif %}
+        {% if article.tags.size > 0 %}
+          <span>•</span>
+          <div class="flex gap-2">
+            {% for tag in article.tags %}
+              <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">{{ tag }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </header>
+
+    {% if article.image %}
+      <div class="mb-8 rounded-2xl overflow-hidden">
+        <img src="{{ article.image | img_url: '1200x800' }}" alt="{{ article.title }}" class="w-full h-auto">
+      </div>
+    {% endif %}
+
+    <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
+      {{ article.content }}
+    </div>
+
+    {% if blog.comments_enabled? %}
+      <div class="mt-12 pt-8 border-t border-gray-300 dark:border-gray-600">
+        <h3 class="text-2xl text-gray-900 dark:text-white mb-6">Comentarios</h3>
+        
+        {% if article.comments_count > 0 %}
+          <div class="space-y-6 mb-8">
+            {% for comment in article.comments %}
+              <div class="bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-xl p-6">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-gray-900 dark:text-white font-medium">{{ comment.author }}</span>
+                  <time class="text-sm text-gray-600 dark:text-gray-400">{{ comment.created_at | date: '%d %b %Y' }}</time>
+                </div>
+                <p class="text-gray-700 dark:text-gray-300">{{ comment.content }}</p>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-xl p-6">
+          <h4 class="text-xl text-gray-900 dark:text-white mb-4">Deja un comentario</h4>
+          {% form 'new_comment', article %}
+            <div class="space-y-4">
+              <div>
+                <label for="comment-author" class="block text-gray-900 dark:text-white mb-2">Nombre</label>
+                <input type="text" id="comment-author" name="comment[author]" required class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 text-gray-900 dark:text-white">
+              </div>
+              <div>
+                <label for="comment-email" class="block text-gray-900 dark:text-white mb-2">Email</label>
+                <input type="email" id="comment-email" name="comment[email]" required class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 text-gray-900 dark:text-white">
+              </div>
+              <div>
+                <label for="comment-body" class="block text-gray-900 dark:text-white mb-2">Comentario</label>
+                <textarea id="comment-body" name="comment[body]" rows="5" required class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 text-gray-900 dark:text-white"></textarea>
+              </div>
+              <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white rounded-full py-3 px-8 font-medium transition-colors">
+                Publicar comentario
+              </button>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    {% endif %}
+  </article>
+</section>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": []
+}
+{% endschema %}

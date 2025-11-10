@@ -1,0 +1,108 @@
+<section class="container mx-auto px-4 pt-6 pb-20 flex items-center justify-center">
+  <div class="max-w-6xl w-full bg-white/30 dark:bg-black/30 backdrop-blur-xl rounded-3xl p-16 md:p-20 border border-white/50 dark:border-white/10 shadow-2xl min-h-[85vh] flex items-center justify-center relative overflow-hidden">
+    {% if section.settings.background_image != blank %}
+      <div class="absolute inset-0 z-0">
+        <img src="{{ section.settings.background_image | img_url: '2000x2000' }}" 
+             alt="{{ section.settings.title }}"
+             class="w-full h-full object-cover opacity-20">
+      </div>
+    {% endif %}
+    
+    <div class="text-center space-y-8 relative z-10">
+      <div class="space-y-4">
+        {% if section.settings.title != blank %}
+          <h2 class="text-5xl md:text-7xl text-gray-900 dark:text-white tracking-tight">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        
+        {% if section.settings.subtitle != blank %}
+          <h3 class="text-3xl md:text-5xl text-blue-600 dark:text-blue-400">
+            {{ section.settings.subtitle }}
+          </h3>
+        {% endif %}
+      </div>
+      
+      {% if section.settings.description != blank %}
+        <p class="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+        {% if section.settings.button_primary_text != blank %}
+          <a href="{{ section.settings.button_primary_link }}" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 rounded-full transition-colors group text-lg font-medium">
+            {{ section.settings.button_primary_text }}
+            <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        {% endif %}
+        
+        {% if section.settings.button_secondary_text != blank %}
+          <a href="{{ section.settings.button_secondary_link }}" class="inline-flex items-center justify-center border-2 border-gray-900 dark:border-white text-gray-900 dark:text-white hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-gray-900 px-8 py-6 rounded-full transition-all text-lg font-medium">
+            {{ section.settings.button_secondary_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "NUEVA COLECCIÓN"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Urban Winter 2025"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Descubre las últimas tendencias en streetwear. Estilo único, calidad premium y diseños exclusivos que definen tu personalidad."
+    },
+    {
+      "type": "text",
+      "id": "button_primary_text",
+      "label": "Primary Button Text",
+      "default": "COMPRAR AHORA"
+    },
+    {
+      "type": "url",
+      "id": "button_primary_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_secondary_text",
+      "label": "Secondary Button Text",
+      "default": "VER COLECCIÓN"
+    },
+    {
+      "type": "url",
+      "id": "button_secondary_link",
+      "label": "Secondary Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

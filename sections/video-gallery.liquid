@@ -1,0 +1,135 @@
+<section class="container mx-auto px-4 py-20">
+  <div class="text-center mb-12">
+    {% if section.settings.title != blank %}
+      <h2 class="text-4xl md:text-5xl text-gray-900 dark:text-white mb-4">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+    {% if section.settings.description != blank %}
+      <p class="text-xl text-gray-700 dark:text-gray-300">
+        {{ section.settings.description }}
+      </p>
+    {% endif %}
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-{{ section.settings.videos_per_row }} gap-8">
+    {% for block in section.blocks %}
+      <div class="bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl overflow-hidden border border-white/50 dark:border-white/10 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+        <div class="aspect-video relative">
+          {% if block.settings.video_url != blank %}
+            {% if block.settings.video_url contains 'youtube.com' or block.settings.video_url contains 'youtu.be' %}
+              {% assign video_id = block.settings.video_url | split: 'v=' | last | split: '/' | last | split: '&' | first %}
+              <iframe 
+                src="https://www.youtube.com/embed/{{ video_id }}" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+                class="w-full h-full">
+              </iframe>
+            {% elsif block.settings.video_url contains 'vimeo.com' %}
+              {% assign video_id = block.settings.video_url | split: '/' | last %}
+              <iframe 
+                src="https://player.vimeo.com/video/{{ video_id }}" 
+                frameborder="0" 
+                allow="autoplay; fullscreen; picture-in-picture" 
+                allowfullscreen
+                class="w-full h-full">
+              </iframe>
+            {% endif %}
+          {% elsif block.settings.video_file != blank %}
+            <video controls class="w-full h-full object-cover">
+              <source src="{{ block.settings.video_file }}" type="video/mp4">
+              Tu navegador no soporta el elemento de video.
+            </video>
+          {% else %}
+            <div class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700">
+              <svg class="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
+              </svg>
+            </div>
+          {% endif %}
+        </div>
+        
+        {% if block.settings.title != blank %}
+          <div class="p-6">
+            <h3 class="text-xl text-gray-900 dark:text-white">
+              {{ block.settings.title }}
+            </h3>
+            {% if block.settings.description != blank %}
+              <p class="text-gray-700 dark:text-gray-300 mt-2">
+                {{ block.settings.description }}
+              </p>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video Gallery",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "VIDEOS"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "range",
+      "id": "videos_per_row",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Videos per row",
+      "default": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL (YouTube or Vimeo)",
+          "info": "Paste the full URL of your YouTube or Vimeo video"
+        },
+        {
+          "type": "text",
+          "id": "video_file",
+          "label": "Video File URL",
+          "info": "Or paste a direct link to your video file (.mp4)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Gallery",
+      "blocks": [
+        { "type": "video" },
+        { "type": "video" }
+      ]
+    }
+  ]
+}
+{% endschema %}

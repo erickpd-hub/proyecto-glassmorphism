@@ -1,0 +1,125 @@
+<section class="container mx-auto px-4 py-12">
+  <div class="flex flex-col lg:flex-row gap-8">
+    <!-- Filters Sidebar -->
+    <aside class="lg:w-64 bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl p-6 border border-white/50 dark:border-white/10 shadow-xl h-fit">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">FILTROS</h3>
+      
+      <!-- Sort By -->
+      <div class="mb-6">
+        <label class="block text-gray-900 dark:text-white mb-2 font-medium">Ordenar por</label>
+        <select id="SortBy" class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white">
+          <option value="manual">Destacados</option>
+          <option value="best-selling">Más vendidos</option>
+          <option value="title-ascending">A-Z</option>
+          <option value="title-descending">Z-A</option>
+          <option value="price-ascending">Precio: Menor a Mayor</option>
+          <option value="price-descending">Precio: Mayor a Menor</option>
+          <option value="created-descending">Fecha: Nuevo a Antiguo</option>
+          <option value="created-ascending">Fecha: Antiguo a Nuevo</option>
+        </select>
+      </div>
+
+      <!-- Price Filter -->
+      {% if collection.filters.size > 0 %}
+        {% for filter in collection.filters %}
+          <div class="mb-6">
+            <h4 class="text-gray-900 dark:text-white mb-3 font-medium">{{ filter.label }}</h4>
+            {% case filter.type %}
+              {% when 'price_range' %}
+                <div class="space-y-2">
+                  <input type="range" min="{{ filter.range_min }}" max="{{ filter.range_max }}" class="w-full">
+                </div>
+              {% else %}
+                <div class="space-y-2">
+                  {% for value in filter.values %}
+                    <label class="flex items-center">
+                      <input type="checkbox" class="mr-2">
+                      <span class="text-gray-700 dark:text-gray-300">{{ value.label }} ({{ value.count }})</span>
+                    </label>
+                  {% endfor %}
+                </div>
+            {% endcase %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </aside>
+
+    <!-- Products Grid -->
+    <div class="flex-1">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for product in collection.products %}
+          <div class="group bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl overflow-hidden border border-white/50 dark:border-white/10 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+            <div class="relative overflow-hidden aspect-square">
+              <a href="{{ product.url }}">
+                {% if product.featured_image %}
+                  <img src="{{ product.featured_image | img_url: '800x800' }}" 
+                       alt="{{ product.title }}"
+                       loading="lazy"
+                       class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                {% endif %}
+              </a>
+              
+              {% if product.compare_at_price > product.price %}
+                <span class="absolute top-4 left-4 bg-blue-600 text-white border-0 px-3 py-1 rounded-full text-sm font-medium">
+                  OFERTA
+                </span>
+              {% elsif product.tags contains 'new' %}
+                <span class="absolute top-4 left-4 bg-blue-600 text-white border-0 px-3 py-1 rounded-full text-sm font-medium">
+                  NUEVO
+                </span>
+              {% endif %}
+              
+              <button class="wishlist-btn absolute top-4 right-4 bg-white/80 dark:bg-black/80 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg class="w-5 h-5 text-gray-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+              </button>
+            </div>
+
+            <div class="p-6">
+              <h3 class="text-xl text-gray-900 dark:text-white mb-2">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              <div class="flex items-center gap-3 mb-4">
+                <span class="text-2xl text-gray-900 dark:text-white">
+                  {{ product.price | money }}
+                </span>
+                {% if product.compare_at_price > product.price %}
+                  <span class="text-gray-500 dark:text-gray-400 line-through">
+                    {{ product.compare_at_price | money }}
+                  </span>
+                {% endif %}
+              </div>
+              
+              <form action="/cart/add" method="post" class="add-to-cart-form">
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-full py-3 px-6 transition-colors flex items-center justify-center group/btn font-medium">
+                  <svg class="w-5 h-5 mr-2 group-hover/btn:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                  </svg>
+                  AGREGAR AL CARRITO
+                </button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      {% if paginate.pages > 1 %}
+        <div class="mt-12 flex justify-center">
+          {% render 'pagination', paginate: paginate %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Product Grid",
+  "settings": []
+}
+{% endschema %}

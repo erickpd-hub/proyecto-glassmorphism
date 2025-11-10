@@ -1,0 +1,109 @@
+<section class="container mx-auto px-4 py-20">
+  <div class="text-center mb-12">
+    {% if section.settings.title != blank %}
+      <h2 class="text-4xl md:text-5xl text-gray-900 dark:text-white mb-4">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+    {% if section.settings.description != blank %}
+      <p class="text-xl text-gray-700 dark:text-gray-300">
+        {{ section.settings.description }}
+      </p>
+    {% endif %}
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-{{ section.settings.collections_per_row }} gap-8">
+    {% for block in section.blocks %}
+      {% if block.settings.collection != blank %}
+        <a href="{{ block.settings.collection.url }}" class="group">
+          <div class="bg-white/40 dark:bg-black/40 backdrop-blur-lg rounded-2xl overflow-hidden border border-white/50 dark:border-white/10 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+            <div class="relative overflow-hidden aspect-square">
+              {% if block.settings.collection.image %}
+                <img src="{{ block.settings.collection.image | img_url: '800x800' }}" 
+                     alt="{{ block.settings.collection.title }}"
+                     loading="lazy"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+              {% elsif block.settings.collection.products.first.featured_image %}
+                <img src="{{ block.settings.collection.products.first.featured_image | img_url: '800x800' }}" 
+                     alt="{{ block.settings.collection.title }}"
+                     loading="lazy"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+              {% else %}
+                {{ 'collection-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+              {% endif %}
+              
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              
+              <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <h3 class="text-2xl md:text-3xl font-bold mb-2">
+                  {{ block.settings.collection.title | upcase }}
+                </h3>
+                <p class="text-white/90">
+                  {{ block.settings.collection.products_count }} productos
+                </p>
+              </div>
+            </div>
+          </div>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection List",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "NUESTRAS COLECCIONES"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Explora nuestras colecciones exclusivas"
+    },
+    {
+      "type": "range",
+      "id": "collections_per_row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Collections per row",
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection List",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

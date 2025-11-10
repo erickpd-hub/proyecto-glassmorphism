@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "title": "NUEVA COLECCIÓN",
+        "subtitle": "Urban Winter 2025",
+        "description": "Descubre las últimas tendencias en streetwear. Estilo único, calidad premium y diseños exclusivos que definen tu personalidad.",
+        "button_primary_text": "COMPRAR AHORA",
+        "button_primary_link": "/collections/all",
+        "button_secondary_text": "VER COLECCIÓN",
+        "button_secondary_link": "/collections/all"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "PRODUCTOS DESTACADOS",
+        "description": "Lo mejor de nuestra colección",
+        "products_to_show": 6,
+        "show_view_all": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured_collection"
+  ]
+}

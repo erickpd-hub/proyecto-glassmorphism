@@ -1,0 +1,60 @@
+<section class="container mx-auto px-4 py-20">
+  <div class="max-w-4xl mx-auto bg-white/30 dark:bg-black/30 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/50 dark:border-white/10 shadow-2xl">
+    {% if section.settings.title != blank %}
+      <h2 class="text-4xl md:text-5xl text-gray-900 dark:text-white mb-8 text-center">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+    
+    {% if section.settings.content != blank %}
+      <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
+        {{ section.settings.content }}
+      </div>
+    {% endif %}
+    
+    {% if section.settings.button_text != blank %}
+      <div class="text-center mt-8">
+        <a href="{{ section.settings.button_link }}" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full transition-colors font-medium">
+          {{ section.settings.button_text }}
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Rich Text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Agrega tu contenido aquí. Puedes usar texto formateado, listas, enlaces y más.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich Text"
+    }
+  ]
+}
+{% endschema %}

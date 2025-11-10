@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}" class="{{ settings.color_scheme }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {{ content_for_header }}
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          backdropBlur: {
+            xs: '2px',
+          }
+        }
+      }
+    }
+  </script>
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+  
+  <script>
+    // Dark mode initialization
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-slate-50 dark:from-gray-900 dark:via-blue-950 dark:to-gray-900 transition-colors duration-500">
+  
+  {% section 'announcement-bar' %}
+  
+  <div class="flex flex-col items-center pt-6">
+    <div class="mb-4">
+      {% if settings.logo != blank %}
+        <a href="/" class="block">
+          <img src="{{ settings.logo | img_url: 'master' }}" alt="{{ shop.name }}" class="h-16 md:h-20 w-auto mx-auto">
+        </a>
+      {% else %}
+        <a href="/" class="block">
+          <h1 class="text-4xl md:text-6xl tracking-wider text-gray-900 dark:text-white">{{ shop.name | upcase }}</h1>
+        </a>
+      {% endif %}
+    </div>
+    
+    {% section 'header' %}
+  </div>
+
+  <main role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+
+  {{ 'theme.js' | asset_url | script_tag }}
+</body>
+</html>

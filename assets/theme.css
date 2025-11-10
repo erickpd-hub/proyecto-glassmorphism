@@ -1,0 +1,67 @@
+/* Custom theme styles */
+.navbar-transition {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Prose styles for dark mode */
+.prose.dark\:prose-invert {
+  color: #d1d5db;
+}
+
+.prose.dark\:prose-invert h1,
+.prose.dark\:prose-invert h2,
+.prose.dark\:prose-invert h3,
+.prose.dark\:prose-invert h4,
+.prose.dark\:prose-invert h5,
+.prose.dark\:prose-invert h6 {
+  color: #ffffff;
+}
+
+.prose.dark\:prose-invert a {
+  color: #60a5fa;
+}
+
+.prose.dark\:prose-invert strong {
+  color: #ffffff;
+}
+
+.prose.dark\:prose-invert code {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.5);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.7);
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.7);
+}
