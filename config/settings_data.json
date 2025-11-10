@@ -1,0 +1,64 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "logo": "shopify://shop_images/AUDE_1.png",
+    "favicon": "shopify://shop_images/Whisk_310fd1a84f13ed3abfc4c995b28622b6dr_1.png",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": true
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "footer-0": {
+            "type": "link_list",
+            "settings": {
+              "title": "Quick links",
+              "menu": ""
+            }
+          },
+          "footer-1": {
+            "type": "link_list",
+            "settings": {
+              "title": "Quick links",
+              "menu": ""
+            }
+          },
+          "footer-2": {
+            "type": "text",
+            "settings": {
+              "title": "About us",
+              "text": "<p>Add your store information here.</p>"
+            }
+          }
+        },
+        "block_order": [
+          "footer-0",
+          "footer-1",
+          "footer-2"
+        ],
+        "settings": {
+          "show_payment_icons": true
+        }
+      }
+    },
+    "content_for_index": []
+  }
+}
