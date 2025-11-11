@@ -1,8 +1,18 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero",
       "settings": {
+        "background_image": "shopify://shop_images/Whisk_310fd1a84f13ed3abfc4c995b28622b6dr_1.png",
         "title": "NUEVA COLECCIÓN",
         "subtitle": "Urban Winter 2025",
         "description": "Descubre las últimas tendencias en streetwear. Estilo único, calidad premium y diseños exclusivos que definen tu personalidad.",
@@ -17,6 +27,7 @@
       "settings": {
         "title": "PRODUCTOS DESTACADOS",
         "description": "Lo mejor de nuestra colección",
+        "collection": "",
         "products_to_show": 6,
         "show_view_all": true
       }
