@@ -16,7 +16,7 @@
         "title": "NUEVA COLECCIÓN",
         "subtitle": "Urban Winter 2025",
         "description": "Descubre las últimas tendencias en streetwear. Estilo único, calidad premium y diseños exclusivos que definen tu personalidad.",
-        "button_primary_text": "COMPRAR AHORA",
+        "button_primary_text": "",
         "button_primary_link": "/collections/all",
         "button_secondary_text": "VER COLECCIÓN",
         "button_secondary_link": "/collections/all"
@@ -31,55 +31,10 @@
         "products_to_show": 6,
         "show_view_all": true
       }
-    },
-    "faq_VdxA8M": {
-      "type": "faq",
-      "blocks": {
-        "faq_item_byh7RF": {
-          "type": "faq_item",
-          "settings": {
-            "question": "¿Cuál es el tiempo de envío?",
-            "answer": "<p>El tiempo de envío es de 3-5 días hábiles.</p>"
-          }
-        },
-        "faq_item_TMFyED": {
-          "type": "faq_item",
-          "settings": {
-            "question": "¿Aceptan devoluciones?",
-            "answer": "<p>Sí, aceptamos devoluciones dentro de los 30 días posteriores a la compra.</p>"
-          }
-        },
-        "faq_item_6hXk3B": {
-          "type": "faq_item",
-          "settings": {
-            "question": "¿Cómo puedo rastrear mi pedido?",
-            "answer": "<p>Recibirás un correo electrónico con el número de seguimiento una vez que tu pedido sea enviado.</p>"
-          }
-        },
-        "faq_item_HdHgzH": {
-          "type": "faq_item",
-          "settings": {
-            "question": "cuanto tarda el envio",
-            "answer": "<p>respuesta</p>"
-          }
-        }
-      },
-      "block_order": [
-        "faq_item_byh7RF",
-        "faq_item_TMFyED",
-        "faq_item_6hXk3B",
-        "faq_item_HdHgzH"
-      ],
-      "name": "FAQ",
-      "settings": {
-        "title": "frecuente",
-        "description": "Encuentra respuestas a las preguntas más comunes"
-      }
     }
   },
   "order": [
     "hero",
-    "featured_collection",
-    "faq_VdxA8M"
+    "featured_collection"
   ]
 }

@@ -1,14 +1,49 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "banner": {
-      "type": "collection-banner"
+      "type": "collection-banner",
+      "settings": {}
     },
     "product_grid": {
-      "type": "collection-product-grid"
+      "type": "collection-product-grid",
+      "settings": {}
+    },
+    "rich_text_yR6NE3": {
+      "type": "rich-text",
+      "name": "Rich Text",
+      "settings": {
+        "title": "titulo",
+        "content": "<p>Agrega tu contenido aquí. Puedes usar texto formateado, listas, enlaces y más.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "image_text_banner_rHPmtk": {
+      "type": "image-text-banner",
+      "name": "Image & Text Banner",
+      "settings": {
+        "image": "shopify://shop_images/Whisk_1c7c3f32343ddab9a2a413c008bf6de5eg.png",
+        "layout": "image_first",
+        "title": "Sobre Nosotros",
+        "text": "<p>Describe tu marca y historia aquí.</p>",
+        "button_text": "",
+        "button_link": ""
+      }
     }
   },
   "order": [
     "banner",
-    "product_grid"
+    "product_grid",
+    "rich_text_yR6NE3",
+    "image_text_banner_rHPmtk"
   ]
 }
