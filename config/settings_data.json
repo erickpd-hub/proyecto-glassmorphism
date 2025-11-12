@@ -14,6 +14,24 @@
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
+        "blocks": {
+          "announcement_CQYrTY": {
+            "type": "announcement",
+            "settings": {
+              "text": "🔥 50% OFF EN TODA LA COLECCIÓN"
+            }
+          },
+          "announcement_6LFe97": {
+            "type": "announcement",
+            "settings": {
+              "text": "🔥 50% OFF EN TODA LA COLECCIÓN"
+            }
+          }
+        },
+        "block_order": [
+          "announcement_CQYrTY",
+          "announcement_6LFe97"
+        ],
         "settings": {
           "show_announcement": true
         }
