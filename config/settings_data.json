@@ -60,5 +60,64 @@
       }
     },
     "content_for_index": []
+  },
+  "presets": {
+    "Streetwear Glass": {
+      "logo_width": 100,
+      "color_primary": "#2563eb",
+      "color_secondary": "#0ea5e9",
+      "color_scheme": "",
+      "font_heading": "assistant_n4",
+      "font_body": "assistant_n4",
+      "sections": {
+        "announcement-bar": {
+          "type": "announcement-bar",
+          "settings": {
+            "show_announcement": true
+          }
+        },
+        "header": {
+          "type": "header",
+          "settings": {
+            "menu": "main-menu"
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "footer-0": {
+              "type": "link_list",
+              "settings": {
+                "title": "Quick links",
+                "menu": ""
+              }
+            },
+            "footer-1": {
+              "type": "link_list",
+              "settings": {
+                "title": "Quick links",
+                "menu": ""
+              }
+            },
+            "footer-2": {
+              "type": "text",
+              "settings": {
+                "title": "About us",
+                "text": "<p>Add your store information here.</p>"
+              }
+            }
+          },
+          "block_order": [
+            "footer-0",
+            "footer-1",
+            "footer-2"
+          ],
+          "settings": {
+            "show_payment_icons": true
+          }
+        }
+      },
+      "content_for_index": []
+    }
   }
 }

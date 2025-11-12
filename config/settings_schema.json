@@ -4,7 +4,8 @@
     "theme_name": "Streetwear Glass",
     "theme_version": "1.0.0",
     "theme_author": "Erickpd",
-
+    "theme_documentation_url": "https://github.com/Erickpd/streetwear-glass",
+    "theme_support_url": "https://github.com/Erickpd/streetwear-glass/issues"
   },
   {
     "name": "Logo",
